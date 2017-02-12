@@ -1,7 +1,6 @@
 import React from 'react'
 import { AppRegistry, View, Text, Image, StyleSheet } from 'react-native'
 
-const humIcon = require('../../../img/icons/hum.svg')
 const allowedIcons = [
   {name: 'cloud', image: require('../../../img/icons/cloud.png')},
   {name: 'flash', image: require('../../../img/icons/flash.png')},
@@ -15,13 +14,12 @@ const allowedIcons = [
   {name: 'tornado', image: require('../../../img/icons/tornado.png')}
 ]
 
-
+let boxSize = 110
 export default class WeatherIcon extends React.Component
 {
   constructor(props)
   {
     super(props)
-    let iconSize = props.size || 110
     let iconDefault = allowedIcons[9]
     if (props.icon && allowedIcons.indexOf(props.icon) > -1)
     {
@@ -30,19 +28,17 @@ export default class WeatherIcon extends React.Component
 
     this.state = {
       icon: iconDefault,
-      size: iconSize
+      size: (!isNaN(Number(props.size))) ? props.size : boxSize
     }
   }
 
   render()
   {
-    // let _iconPath = "../../../img/icons/"+this.state.icon+".png"
-
     return (
-      <View style={styles.icon_wrapper}>
+      <View style={[styles.icon_wrapper, {height: this.state.size, width: this.state.size}]}>
         <Image
           source={this.state.icon.image}
-          style={[styles.icon, styles[this.state.icon.name]]}
+          style={[styles.icon, styles[this.state.icon.name], {height: this.state.size, width: this.state.size}]}
         />
       </View>
     )
@@ -51,17 +47,12 @@ export default class WeatherIcon extends React.Component
 
 const styles = StyleSheet.create({
   icon_wrapper: {
-    height: 110,
-    width: 110,
     justifyContent: 'center',
     alignItems: 'center'
   },
   icon: {
     position: 'absolute',
     backgroundColor: 'transparent',
-    // backgroundColor: 'pink',
-    height: 110,
-    width: 110,
   },
   cloud: {
     top: -2,
@@ -94,19 +85,8 @@ const styles = StyleSheet.create({
   },
   tornado: {
     top: 3,
+    left: -5
   }
 })
-
-// {name: 'cloud', image: require('../../../img/icons/cloud.png')},
-// {name: 'flash', image: require('../../../img/icons/flash.png')},
-// {name: 'meteor', image: require('../../../img/icons/meteor.png')},
-// {name: 'night_cloud', image: require('../../../img/icons/night_cloud.png')},
-// {name: 'night', image: require('../../../img/icons/night.png')},
-// {name: 'snow_rain', image: require('../../../img/icons/snow_rain.png')},
-// {name: 'snow', image: require('../../../img/icons/snow.png')},
-// {name: 'sun_cloud', image: require('../../../img/icons/sun_cloud.png')},
-// {name: 'sun', image: require('../../../img/icons/sun.png')},
-// {name: 'tornado', image: require('../../../img/icons/tornado.png')}
-
 
 AppRegistry.registerComponent('WeatherIcon', () => WeatherIcon)
