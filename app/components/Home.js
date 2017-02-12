@@ -3,7 +3,7 @@ import { AppRegistry, StyleSheet, Text, View, Button, TouchableHighlight } from 
 
 import Navigation from './partials/assets/Navigation'
 import HomeHeader from './partials/home/HomeHeader'
-import HomeFooter from './partials/home/HomeFooter'
+import Footer from './partials/footer/Footer'
 
 export default class Home extends React.Component
 {
@@ -13,7 +13,7 @@ export default class Home extends React.Component
       <View style={styles.container} >
         <Navigation />
         <HomeHeader />
-        <HomeFooter />
+        <Footer />
       </View>
     )
   }
