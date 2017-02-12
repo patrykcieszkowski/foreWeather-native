@@ -5,13 +5,34 @@ import WeatherIcon from '../assets/WeatherIcon'
 
 export default class HomeHeaderWeatherInfo extends React.Component
 {
+
+  viewWeatherDetails()
+  {
+    // if (!this.props.settings.expandView)
+    // {
+    //   return
+    // }
+
+    return (
+      <View style={styles.weather_details_wrapper}>
+        <View style={styles.weather_details_single}>
+          <View></View>
+          <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>12%</Text>
+        </View>
+        <View style={styles.weather_details_single}>
+          <View></View>
+          <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>2m/s</Text>
+        </View>
+      </View>
+    )
+  }
+
   render()
   {
     return (
       <View style={styles.weather} >
         <View style={styles.weather_icon} >
           <WeatherIcon />
-
         </View>
         <View style={styles.weather_info} >
           <Text style={[styles.weather_info_text, styles.temp_text]}>16°</Text>
@@ -19,16 +40,7 @@ export default class HomeHeaderWeatherInfo extends React.Component
             <Text style={[styles.weather_info_text, styles.location_text, styles.location_text_bold]}>Stevenage</Text>
             <Text style={[styles.weather_info_text, styles.location_text]}>, Hertfordshire</Text>
           </View>
-          <View style={styles.weather_details_wrapper}>
-            <View style={styles.weather_details_single}>
-              <View></View>
-              <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>12%</Text>
-            </View>
-            <View style={styles.weather_details_single}>
-              <View></View>
-              <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>2m/s</Text>
-            </View>
-          </View>
+          {this.viewWeatherDetails()}
         </View>
       </View>
     )
@@ -50,6 +62,9 @@ const styles = StyleSheet.create({
   },
   weather_info: {
     alignItems: 'center'
+  },
+  weather_details_wrapper: {
+    padding: 10
   },
   location_wrapper: {
     flexDirection: 'row'
