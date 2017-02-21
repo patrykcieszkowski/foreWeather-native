@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppRegistry, StyleSheet, View, Text, ScrollView } from 'react-native'
+import moment from 'moment'
 
 import WeatherIcon from '../assets/WeatherIcon'
 
@@ -7,14 +8,22 @@ export default class FooterScrollableListItem extends React.Component
 {
   render()
   {
+    let { weather } = this.props
+
+    let _moment = moment(weather.dt_txt)
+
     return (
       <View style={styles.container}>
         <View style={[styles.half, styles.half_first]}>
-          <Text style={[styles.text, styles.time_text]}>1-3 am</Text>
+          <Text style={[styles.text, styles.time_text]}>
+            {_moment.format('h')}-{_moment.add(3, 'hours').format('h a')}
+          </Text>
         </View>
         <View style={[styles.half, styles.half_second]}>
-          <WeatherIcon  size={60}/>
-          <Text style={[styles.text, styles.temperature_text]}>48°</Text>
+          <WeatherIcon size={60} icon={weather.weather[0].id} />
+          <Text style={[styles.text, styles.temperature_text]}>
+            {Math.round(weather.main.temp)}°
+          </Text>
         </View>
       </View>
     )

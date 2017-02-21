@@ -11,7 +11,11 @@ export default class HomeHeader extends React.Component
     return (
       <View style={styles.container} >
         <HomeHeaderBackground />
-        <HomeHeaderWeatherInfo />
+        <HomeHeaderWeatherInfo
+          settings={this.props.settings}
+          currentLocationWeather={this.props.currentLocationWeather}
+          currentLocationDetails={this.props.currentLocationDetails}
+        />
       </View>
     )
   }

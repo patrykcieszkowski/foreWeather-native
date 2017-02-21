@@ -6,22 +6,26 @@ import WeatherIcon from '../assets/WeatherIcon'
 export default class HomeHeaderWeatherInfo extends React.Component
 {
 
-  viewWeatherDetails()
+  viewWeatherDetails(recentWeatherDetails)
   {
-    // if (!this.props.settings.expandView)
-    // {
-    //   return
-    // }
+    if (this.props.settings.expandFooterBool)
+    {
+      return
+    }
 
     return (
       <View style={styles.weather_details_wrapper}>
         <View style={styles.weather_details_single}>
           <View></View>
-          <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>12%</Text>
+          <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>
+            {recentWeatherDetails.main.humidity}%
+          </Text>
         </View>
         <View style={styles.weather_details_single}>
           <View></View>
-          <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>2m/s</Text>
+          <Text style={[styles.weather_info_text, styles.weather_details_single_text]}>
+            {recentWeatherDetails.wind.speed}m/s
+          </Text>
         </View>
       </View>
     )
@@ -29,18 +33,28 @@ export default class HomeHeaderWeatherInfo extends React.Component
 
   render()
   {
+    let { currentLocationDetails, currentLocationWeather } = this.props
+    let locDetails = (currentLocationDetails) ? currentLocationDetails.details : null
+    let recentWeatherDetails = (currentLocationWeather.length) ? currentLocationWeather[0] : null
+
     return (
-      <View style={styles.weather} >
+      <View style={styles.container} >
         <View style={styles.weather_icon} >
-          <WeatherIcon />
+          <WeatherIcon icon={(recentWeatherDetails) ? recentWeatherDetails.weather[0].id : null} />
         </View>
         <View style={styles.weather_info} >
-          <Text style={[styles.weather_info_text, styles.temp_text]}>16°</Text>
+          <Text style={[styles.weather_info_text, styles.temp_text]}>
+            {(recentWeatherDetails) ? recentWeatherDetails.main.temp : '??'}°
+          </Text>
           <View style={styles.location_wrapper}>
-            <Text style={[styles.weather_info_text, styles.location_text, styles.location_text_bold]}>Stevenage</Text>
-            <Text style={[styles.weather_info_text, styles.location_text]}>, Hertfordshire</Text>
+            <Text style={[styles.weather_info_text, styles.location_text, styles.location_text_bold]}>
+              {(locDetails) ? locDetails.city.short_name : '??'}
+            </Text>
+            <Text style={[styles.weather_info_text, styles.location_text]}>
+              , {(locDetails) ? locDetails.state.short_name : '??'}
+            </Text>
           </View>
-          {this.viewWeatherDetails()}
+          {this.viewWeatherDetails(recentWeatherDetails)}
         </View>
       </View>
     )
@@ -48,14 +62,11 @@ export default class HomeHeaderWeatherInfo extends React.Component
 }
 
 const styles = StyleSheet.create({
-  weather: {
-    // position: 'absolute',
+  container: {
     top: 85,
     height: 300,
     left: 0,
     right: 0,
-
-    // backgroundColor: 'pink',
     alignItems: 'center',
     justifyContent: 'flex-start',
     zIndex: 10,

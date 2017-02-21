@@ -1,5 +1,7 @@
 import React from 'react'
 import { AppRegistry, StyleSheet, View, Text, ScrollView } from 'react-native'
+import moment from 'moment'
+import _ from 'lodash'
 
 import FooterScrollableListItem from './FooterScrollableListItem'
 
@@ -7,11 +9,12 @@ export default class FooterScrollabl extends React.Component
 {
   render()
   {
+    let { nextDaysWeather } = this.props
+    let currentDate = moment().format('DD.MM')
+
     return (
       <ScrollView style={styles.container}>
-        <FooterScrollableListItem />
-        <FooterScrollableListItem />
-        <FooterScrollableListItem />
+        {nextDaysWeather[currentDate].map((_weather) => <FooterScrollableListItem key={_weather.dt} weather={_weather} />)}
       </ScrollView>
     )
   }
