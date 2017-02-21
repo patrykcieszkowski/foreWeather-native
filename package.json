@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/patrykcieszkowski/foreWeather-native.git"
   },
@@ -14,8 +14,15 @@
   "license": "MIT",
   "homepage": "https://github.com/patrykcieszkowski/foreWeather-native",
   "dependencies": {
+    "axios": "^0.15.3",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
     "react": "~15.4.0-rc.4",
-    "react-native": "0.41.0"
+    "react-native": "0.41.0",
+    "react-native-drawer": "^2.3.0",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
