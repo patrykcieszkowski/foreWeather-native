@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { AppRegistry, StyleSheet, Text, View } from 'react-native'
+import { Provider } from 'react-redux'
 
-import Home from './app/components/Home'
+import store from './app/Store'
+import App from './app/components/App'
 
 export default class ForeWeather extends Component {
   render()
   {
     return (
-      <View style={styles.wrapper}>
-        <Home />
-      </View>
+      <Provider store={store}>
+        <App />
+      </Provider>
     )
   }
 }
