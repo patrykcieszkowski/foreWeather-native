@@ -30,6 +30,7 @@ export const locations = {
   }],
   search: {
     criteria: '',
+    status: 'success',
     result: [{
       id: 993399,
       details: {
