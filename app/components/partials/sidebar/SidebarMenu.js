@@ -26,6 +26,7 @@ export default class SidebarMenu extends React.Component
         toggleSearchView={this.props.toggleSearchView}
         setSearchCriteria={this.props.setSearchCriteria}
         addLocation={this.props.addLocation}
+        searchLocation={this.props.searchLocation}
       />
     }
 

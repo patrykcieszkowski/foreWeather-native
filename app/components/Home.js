@@ -44,6 +44,7 @@ export default class Home extends React.Component
           setSearchCriteria={this.props.setSearchCriteria}
           removeLocation={this.props.removeLocation}
           addLocation={this.props.addLocation}
+          searchLocation={this.props.searchLocation}
         />
       </View>
     )

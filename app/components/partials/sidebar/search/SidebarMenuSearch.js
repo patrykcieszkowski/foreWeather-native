@@ -8,8 +8,8 @@ export default class SidebarMenuSearch extends React.Component
 {
   onSubmitEditing()
   {
-    // this.props.setSearchCriteria(this.state.locationStr)
-    // search
+    let { searchLocation } = this.props
+    searchLocation(this.props.locations.search.criteria)
   }
 
   onCloseButtonClick(e)

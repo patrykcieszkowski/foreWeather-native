@@ -5,6 +5,20 @@ export default function(state=locations, action)
 {
   switch (action.type)
   {
+    case 'SEARCH_LOCATION':
+    {
+      console.log(action)
+      return state
+    }
+    case 'SEARCH_LOCATION_FULFILLED':
+    {
+      console.log(action)
+      return {
+        ...state,
+        status: 'success',
+        // list: action.payload
+      }
+    }
     case 'SET_SEARCH_CRITERIA':
     {
       return {
@@ -29,7 +43,7 @@ export default function(state=locations, action)
         ...state,
         list: [
           ...state.list.slice(0, chosenLocId),
-          ...state.list.slice(chosenLocId+1)      
+          ...state.list.slice(chosenLocId+1)
 
         ]
       }
