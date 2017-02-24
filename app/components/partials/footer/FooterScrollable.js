@@ -12,6 +12,11 @@ export default class FooterScrollabl extends React.Component
     let { nextDaysWeather } = this.props
     let currentDate = moment().format('DD.MM')
 
+    if (!nextDaysWeather[currentDate])
+    {
+      return null
+    }
+
     return (
       <ScrollView style={styles.container}>
         {nextDaysWeather[currentDate].map((_weather) => <FooterScrollableListItem key={_weather.dt} weather={_weather} />)}
