@@ -13,11 +13,9 @@ export default class Footer extends React.Component
     let { currentLocationWeather } = this.props
     let nextDaysWeather = _(_.cloneDeep(currentLocationWeather))
                             .sortBy((obj) => moment(obj.dt_txt).unix())
-                            .filter((obj) => moment(obj.dt_txt).unix() > moment().add(3, 'days').unix())
+                            .filter((obj) => moment(obj.dt_txt).isBetween(moment(), moment().add(2, 'days').hours(23)))
                             .groupBy(obj => moment(obj.dt_txt).format('DD.MM'))
                             .value()
-
-    console.log(nextDaysWeather)
 
     if (this.props.settings.expandFooterBool)
     {
