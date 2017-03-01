@@ -12,16 +12,24 @@ export default class SidebarMenuList extends React.Component
     let { weatherList, locations } = this.props
     let parsedLocations = _.cloneDeep(locations.list)
                             .map((loc) => {
-                              loc.weather = weatherList.find((_loc) => (
-                                _loc.coord.lon.toFixed(1) === loc.details.geometry.lng.toFixed(1)
-                                && _loc.coord.lat.toFixed(1) === loc.details.geometry.lat.toFixed(1) ))
+                              let goalCoord = loc.details.coord;
+                              loc.weather = weatherList.reduce((prev, curr) => (
+                                (Math.abs(curr.city.coord.lon - goalCoord.lon) < Math.abs(prev.city.coord.lon - goalCoord.lon) ? curr : prev)
+                                && (Math.abs(curr.city.coord.lat - goalCoord.lat) < Math.abs(prev.city.coord.lat - goalCoord.lat) ? curr : prev))
+                              )
                               return loc
                             }).filter((loc) => loc)
 
     return (
       <View style={styles.container}>
       <ScrollView style={styles.list}>
-        {parsedLocations.map((loc) => <SidebarMenuListItem key={loc.id} details={loc} removeLocation={this.props.removeLocation} />)}
+        {parsedLocations.map((loc) => <SidebarMenuListItem
+                                        key={loc.id}
+                                        details={loc}
+                                        removeLocation={this.props.removeLocation}
+                                        setCurrentLocation={this.props.setCurrentLocation}
+                                        toggleSidebarView={this.props.toggleSidebarView}
+                                      />)}
       </ScrollView>
       <SidebarButton
         text='Add new city'

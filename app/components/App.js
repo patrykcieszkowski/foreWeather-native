@@ -9,15 +9,21 @@ import moment from 'moment'
 
 function mapStateToProps(state, params)
 {
-  let currLocDetails = _.cloneDeep(state.locations.list).find((_loc) => _loc.id === state.settings.currentLocationId)
-  let currLocWeather = _.cloneDeep(state.weather).find((_loc) => (
-    _loc.coord.lon.toFixed(1) == currLocDetails.details.geometry.lng.toFixed(1)
-    && _loc.coord.lat.toFixed(1) == currLocDetails.details.geometry.lat.toFixed(1) ))
-    .list
+  let { weather, locations, settings } = state
+  let currLocWeather
+  let currLocDetails = locations.list.find((_loc) => _loc.id === settings.currentLocationId) || locations.list[0]
+  if (weather.length && currLocDetails)
+  {
+    let goal = currLocDetails.details.coord
+    currLocWeather = weather.reduce((prev, curr) => (
+      (Math.abs(curr.city.coord.lon - goal.lon) < Math.abs(prev.city.coord.lon - goal.lon) ? curr : prev)
+      && (Math.abs(curr.city.coord.lat - goal.lat) < Math.abs(prev.city.coord.lat - goal.lat) ? curr : prev))
+    )
+  }
 
   let newState = {
     ...state,
-    currentLocationWeather: currLocWeather,
+    currentLocationWeather: (currLocWeather) ? currLocWeather.list : [],
     currentLocationDetails: currLocDetails
   }
 
