@@ -5,10 +5,10 @@ import WeatherIcon from '../assets/WeatherIcon'
 
 export default class HomeHeaderWeatherInfo extends React.Component
 {
-
   viewWeatherDetails(recentWeatherDetails)
   {
-    if (this.props.settings.expandFooterBool)
+    if (this.props.settings.expandFooterBool
+      || !recentWeatherDetails)
     {
       return
     }
