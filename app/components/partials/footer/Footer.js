@@ -13,7 +13,7 @@ export default class Footer extends React.Component
     let { currentLocationWeather } = this.props
     let nextDaysWeather = _(_.cloneDeep(currentLocationWeather))
                             .sortBy((obj) => moment(obj.dt_txt).unix())
-                            .filter((obj) => moment(obj.dt_txt).isBetween(moment(), moment().add(2, 'days').hours(23)))
+                            .filter((obj) => moment(obj.dt_txt).isBetween(moment().hours(0), moment().add(2, 'days').hours(0)))
                             .groupBy(obj => moment(obj.dt_txt).format('DD.MM'))
                             .value()
 
