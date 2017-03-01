@@ -7,10 +7,17 @@ export default class SidebarMenuSearchList extends React.Component
 {
   render()
   {
-    let { searchResult, addLocation } = this.props
+    let { searchResult, addLocation, getForecast, toggleSearchView, toggleSidebarView } = this.props
     return (
       <ScrollView style={styles.container}>
-        {searchResult.map((loc, i) => <SidebarMenuSearchListItem key={i} locationDetails={loc} addLocation={addLocation} /> )}
+        {searchResult.map((loc, i) => <SidebarMenuSearchListItem
+                                        key={i}
+                                        locationDetails={loc}
+                                        addLocation={addLocation}
+                                        getForecast={getForecast}
+                                        toggleSearchView={toggleSearchView}
+                                        toggleSidebarView={toggleSidebarView}
+                                        /> )}
       </ScrollView>
     )
   }
