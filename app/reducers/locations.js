@@ -7,16 +7,52 @@ export default function(state=locations, action)
   {
     case 'SEARCH_LOCATION':
     {
-      console.log(action)
       return state
     }
     case 'SEARCH_LOCATION_FULFILLED':
     {
-      console.log(action)
+      let { json } = action.payload
+      let _locList = _.cloneDeep(json.results)
+                      .map((loc) => ({
+                        id: loc.place_id,
+                        details: {
+                          "addr": loc.formatted_address,
+                          "city": loc.address_components[0],
+                          "state": (loc.address_components[3].short_name == "US") ? loc.address_components[2] : loc.address_components[1],
+                          "country": loc.address_components[3],
+                          "coord": {
+                            "lat": loc.geometry.location.lat,
+                            "lon": loc.geometry.location.lng
+                          }
+                        }}))
+
       return {
         ...state,
-        status: 'success',
-        // list: action.payload
+        search: {
+          ...state.search,
+          status: 'success',
+          result: _locList
+        }
+      }
+    }
+    case 'SEARCH_LOCATION_PENDING':
+    {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          status: 'pending'
+        }
+      }
+    }
+    case 'SEARCH_LOCATION_ERROR':
+    {
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          status: 'error'
+        }
       }
     }
     case 'SET_SEARCH_CRITERIA':
