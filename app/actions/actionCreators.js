@@ -41,33 +41,52 @@ export function searchLocation(location)
 
   return (dispatch) =>
   {
-    searchLocation_pending()
-    fetch(_url)
-      .then((res) => dispatch(searchLocation_fulfilled(res)) )
+    dispatch(searchLocation_pending())
+    return fetch(_url)
+      .then((res) => res.json())
+      .then((json) => dispatch(searchLocation_fulfilled(json)))
       .catch((e) => dispatch(searchLocation_error(e)) )
   }
 }
 
-export function searchLocation_pending(res)
+export function searchLocation_pending()
 {
   return { type: 'SEARCH_LOCATION_PENDING' }
 }
 
-export function searchLocation_fulfilled(res)
+export function searchLocation_fulfilled(json)
 {
-  return { type: 'SEARCH_LOCATION_FULFILLED', payload: res.json() }
+  return { type: 'SEARCH_LOCATION_FULFILLED', payload: { json } }
 }
 
 export function searchLocation_error(error)
 {
+  console.log(error);
   return { type: 'SEARCH_LOCATION_ERROR', payload: { error } }
 }
 
+/* forecast */
+
 export function getForecast(location)
 {
-  let _url = `http://foreweather.heroku.com?location=${location}`
-  return {
-    type: 'FORECAST',
-    payload: fetch(_url).then(res => res.json())
+  let _url = `https://foreweather.herokuapp.com/api/forecast?location=${location}`
+
+  return (dispatch) =>
+  {
+    return fetch(_url)
+      .then((res) => res.json())
+      .then((json) => dispatch(getForecast_fulfilled(json)))
+      .catch((e) => dispatch(getForecast_error(e)) )
   }
+}
+
+export function getForecast_fulfilled(json)
+{
+  return { type: 'GET_FORECAST_FULFILLED', payload: { json } }
+}
+
+export function getForecast_error(error)
+{
+  console.log(error);
+  return { type: 'GET_FORECAST_ERROR', payload: { error } }
 }
