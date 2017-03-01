@@ -3,14 +3,23 @@ import { AppRegistry, View, Text, StyleSheet, ScrollView, TouchableHighlight } f
 
 export default class SidebarMenuSearchListItem extends React.Component
 {
+  onPressEvent(e)
+  {
+    let { addLocation, locationDetails, getForecast, toggleSearchView, toggleSidebarView } = this.props
+    addLocation(locationDetails.id)
+    getForecast(locationDetails.details.addr)
+    toggleSearchView()
+    // toggleSidebarView()
+  }
+
   render()
   {
-    let { locationDetails, addLocation } = this.props
+    let { locationDetails } = this.props
 
     return (
       <TouchableHighlight
         style={styles.container}
-        onPress={() => addLocation(locationDetails.id)}
+        onPress={this.onPressEvent.bind(this)}
       >
         <View style={styles.location_wrapper}>
           <Text style={[styles.location_city, styles.location_text, styles.location_text_bold]}>
