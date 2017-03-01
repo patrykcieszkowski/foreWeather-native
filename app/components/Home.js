@@ -45,6 +45,8 @@ export default class Home extends React.Component
           removeLocation={this.props.removeLocation}
           addLocation={this.props.addLocation}
           searchLocation={this.props.searchLocation}
+          getForecast={this.props.getForecast}
+          setCurrentLocation={this.props.setCurrentLocation}
         />
       </View>
     )

@@ -16,6 +16,8 @@ export default class SidebarMenu extends React.Component
       toggleSearchView={this.props.toggleSearchView}
       settings={this.props.settings}
       removeLocation={this.props.removeLocation}
+      setCurrentLocation={this.props.setCurrentLocation}
+      toggleSidebarView={this.props.toggleSidebarView}
     />
 
     if (this.props.settings.sidebarSearchBool)
@@ -27,6 +29,8 @@ export default class SidebarMenu extends React.Component
         setSearchCriteria={this.props.setSearchCriteria}
         addLocation={this.props.addLocation}
         searchLocation={this.props.searchLocation}
+        getForecast={this.props.getForecast}
+        toggleSidebarView={this.props.toggleSidebarView}
       />
     }
 

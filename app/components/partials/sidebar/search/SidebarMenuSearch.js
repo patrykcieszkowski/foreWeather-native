@@ -8,8 +8,8 @@ export default class SidebarMenuSearch extends React.Component
 {
   onSubmitEditing()
   {
-    let { searchLocation } = this.props
-    searchLocation(this.props.locations.search.criteria)
+    let { searchLocation, locations } = this.props
+    searchLocation(locations.search.criteria)
   }
 
   onCloseButtonClick(e)
@@ -47,6 +47,9 @@ export default class SidebarMenuSearch extends React.Component
         <SidebarMenuSearchList
           searchResult={this.props.locations.search.result}
           addLocation={this.props.addLocation}
+          getForecast={this.props.getForecast}
+          toggleSearchView={this.props.toggleSearchView}
+          toggleSidebarView={this.props.toggleSidebarView}
         />
       </View>
     )
