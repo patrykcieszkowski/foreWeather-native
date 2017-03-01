@@ -1,9 +1,17 @@
 import { settings } from '../state'
+import moment from 'moment'
 
 export default function(state=settings, action)
 {
   switch (action.type)
   {
+    case 'UPDATE_RECENT_FETCH_DATE':
+    {
+      return {
+        ...state,
+        recentWeatherUpdate: moment().unix()
+      }
+    }
     case 'TOGGLE_FOOTER':
     {
       return {
