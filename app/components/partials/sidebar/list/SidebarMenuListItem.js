@@ -6,6 +6,13 @@ import CloseButton from '../../assets/CloseButton'
 
 export default class SidebarMenuListItem extends React.Component
 {
+  onPressEvent(e)
+  {
+    let { setCurrentLocation, details, toggleSidebarView } = this.props
+    setCurrentLocation(details.id)
+    toggleSidebarView()
+  }
+
   render()
   {
     let { details, removeLocation } = this.props
@@ -14,7 +21,10 @@ export default class SidebarMenuListItem extends React.Component
 
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.weather_info_box_wrapper}>
+        <TouchableHighlight
+            style={styles.weather_info_box_wrapper}
+            onPress={this.onPressEvent.bind(this)}
+        >
           <View style={styles.weather_info_box}>
             <View style={styles.location_box}>
               <Text style={[
