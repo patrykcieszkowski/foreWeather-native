@@ -11,14 +11,20 @@ export default class SidebarMenuList extends React.Component
   {
     let { weatherList, locations } = this.props
     let parsedLocations = _.cloneDeep(locations.list)
-                            .map((loc) => {
-                              let goalCoord = loc.details.coord;
-                              loc.weather = weatherList.reduce((prev, curr) => (
-                                (Math.abs(curr.city.coord.lon - goalCoord.lon) < Math.abs(prev.city.coord.lon - goalCoord.lon) ? curr : prev)
-                                && (Math.abs(curr.city.coord.lat - goalCoord.lat) < Math.abs(prev.city.coord.lat - goalCoord.lat) ? curr : prev))
-                              )
-                              return loc
-                            }).filter((loc) => loc)
+
+    if (weatherList.length > 0)
+    {
+      parsedLocations = parsedLocations.map((loc) =>
+      {
+        let goalCoord = loc.details.coord;
+        
+        loc.weather = weatherList.reduce((prev, curr) => (
+          (Math.abs(curr.city.coord.lon - goalCoord.lon) < Math.abs(prev.city.coord.lon - goalCoord.lon) ? curr : prev)
+          && (Math.abs(curr.city.coord.lat - goalCoord.lat) < Math.abs(prev.city.coord.lat - goalCoord.lat) ? curr : prev))
+        )
+        return loc
+      }).filter((loc) => loc)
+    }
 
     return (
       <View style={styles.container}>
