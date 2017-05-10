@@ -22,11 +22,17 @@ export default class WeatherIcon extends React.Component
   {
     super(props)
 
-    let iconDefault = allowedIcons.find((_icon) => _icon.name === iconIdToName(this.props.icon))
     this.state = {
-      icon: iconDefault,
+      icon: allowedIcons[2],
       size: (!isNaN(Number(props.size))) ? props.size : boxSize
     }
+  }
+
+  componentWillReceiveProps()
+  {
+    const icon = allowedIcons.find((_icon) => _icon.name === iconIdToName(this.props.icon))
+
+    this.setState({ icon })
   }
 
   render()
